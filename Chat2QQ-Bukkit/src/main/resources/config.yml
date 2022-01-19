@@ -98,4 +98,4 @@ bot:
   # %player% - 玩家显示昵称
   # %advancement_title% - 进度名称
   # %advancement_description% - 进度描述
-  player-advancement-done-message: "%player% 完成进度 %advancement_title% 【%advancement_description%】"
+  player-advancement-done-message: "%player% 达成进度：%advancement_title%【%advancement_description%】"

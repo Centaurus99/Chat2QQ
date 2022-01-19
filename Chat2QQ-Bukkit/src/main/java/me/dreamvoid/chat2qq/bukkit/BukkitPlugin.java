@@ -5,6 +5,7 @@ import me.dreamvoid.chat2qq.bukkit.listener.onGroupMessage;
 import me.dreamvoid.chat2qq.bukkit.listener.onPlayerJoin;
 import me.dreamvoid.chat2qq.bukkit.listener.onPlayerMessage;
 import me.dreamvoid.chat2qq.bukkit.listener.onPlayerQuit;
+import me.dreamvoid.chat2qq.bukkit.listener.onPlayerAdvancementDone;
 import me.dreamvoid.chat2qq.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import org.bukkit.Bukkit;
@@ -16,13 +17,31 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class BukkitPlugin extends JavaPlugin implements Listener {
+
+    public JSONObject lang_zh_cn;
 
     @Override // 加载插件
     public void onLoad() {
         saveDefaultConfig();
         reloadConfig();
+        // 加载资源
+        InputStream lang_json = getResource("lang.json");
+        JSONParser jsonParser = new JSONParser();
+        try {
+            JSONObject lang = (JSONObject) jsonParser.parse(new InputStreamReader(lang_json, "UTF-8"));
+            lang_zh_cn = (JSONObject) jsonParser.parse(lang.get("zh_cn").toString());
+            if (!lang_zh_cn.get("lang").toString().equals("zh_cn"))
+                throw new Exception("lang.json is in wrong format.");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            System.err.println("Failed to load lang.json.");
+        }
     }
 
     @Override // 启用插件
@@ -31,6 +50,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new onPlayerMessage(this), this);
         Bukkit.getPluginManager().registerEvents(new onPlayerJoin(this), this);
         Bukkit.getPluginManager().registerEvents(new onPlayerQuit(this), this);
+        Bukkit.getPluginManager().registerEvents(new onPlayerAdvancementDone(this), this);
         getCommand("qchat").setExecutor(this);
         getCommand("chat2qq").setExecutor(this);
         if (getConfig().getBoolean("general.allow-bStats", true)) {

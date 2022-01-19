@@ -89,3 +89,13 @@ bot:
   # 自带变量：
   # %player% - 玩家显示昵称
   player-quit-message: "%player% 离开服务器"
+
+  # 是否发送玩家完成进度信息
+  send-player-advancement-done-message: false
+
+  # 进度消息
+  # 自带变量：
+  # %player% - 玩家显示昵称
+  # %advancement_title% - 进度名称
+  # %advancement_description% - 进度描述
+  player-advancement-done-message: "%player% 完成进度 %advancement_title% 【%advancement_description%】"

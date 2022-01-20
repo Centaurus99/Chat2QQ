@@ -107,4 +107,5 @@ bot:
   # 自带变量：
   # %player% - 玩家显示昵称
   # %death_description% - 死亡描述
+  # %deaths% - 死亡次数
   player-die-message: "【死亡播报】 %death_description%，这是【%player%】的第 %deaths% 次死亡"

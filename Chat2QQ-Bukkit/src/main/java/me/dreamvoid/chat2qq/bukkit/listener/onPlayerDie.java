@@ -22,7 +22,7 @@ public class onPlayerDie implements Listener{
                     MiraiBot.getBot(plugin.getConfig().getLong("bot.botaccount"))
                     .getGroup(plugin.getConfig().getLong("bot.groupid"))
                     .sendMessageMirai(plugin.getConfig().getString("bot.player-die-message")
-                    .replace("%player%",e.getEntity().getName())
+                    //.replace("%player%",e.getEntity().getName())
                     .replace("%death_description%",e.getDeathMessage())
                     );
                 }

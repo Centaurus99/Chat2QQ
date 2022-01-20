@@ -3,6 +3,8 @@ package me.dreamvoid.chat2qq.bukkit.listener;
 
 import me.dreamvoid.chat2qq.bukkit.BukkitPlugin;
 import me.dreamvoid.miraimc.api.MiraiBot;
+
+import org.bukkit.Statistic;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -19,11 +21,15 @@ public class onPlayerDie implements Listener{
             new BukkitRunnable() {
                 @Override
                 public void run() {
+                    Statistic statistic = Statistic.DEATHS;
+                    String deaths;
+                    deaths = String.format("%d", e.getEntity().getStatistic(statistic));
                     MiraiBot.getBot(plugin.getConfig().getLong("bot.botaccount"))
                     .getGroup(plugin.getConfig().getLong("bot.groupid"))
                     .sendMessageMirai(plugin.getConfig().getString("bot.player-die-message")
-                    //.replace("%player%",e.getEntity().getName())
                     .replace("%death_description%",e.getDeathMessage())
+                    .replace("%player%",e.getEntity().getName())
+                    .replace("%deaths%",deaths)
                     );
                 }
             }.runTaskAsynchronously(plugin);

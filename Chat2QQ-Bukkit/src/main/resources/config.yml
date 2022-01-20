@@ -57,10 +57,10 @@ general:
 # 此部分配置只会影响到QQ群的聊天
 bot:
   # 指定使用的QQ号，只有这个QQ号接收到的群消息才会被处理
-  botaccount: 123456
+  botaccount: 3579995057
 
   # 指定接收指定群的群消息，只有这个群接收到的消息才会被处理
-  groupid: 123456
+  groupid: 929353862
 
   # 群聊天前缀（聊天需要带有指定前缀才能发送到服务器）
   requite-special-word-prefix:
@@ -78,7 +78,7 @@ bot:
   group-chat-format: "[MC] %player%: %message%"
 
   # 是否发送玩家进服退服消息
-  send-player-join-quit-message: false
+  send-player-join-quit-message: true
 
   # 进服消息
   # 自带变量：
@@ -91,7 +91,7 @@ bot:
   player-quit-message: "%player% 离开服务器"
 
   # 是否发送玩家完成进度信息
-  send-player-advancement-done-message: false
+  send-player-advancement-done-message: true
 
   # 进度消息
   # 自带变量：
@@ -99,3 +99,12 @@ bot:
   # %advancement_title% - 进度名称
   # %advancement_description% - 进度描述
   player-advancement-done-message: "%player% 达成进度：%advancement_title%【%advancement_description%】"
+
+   # 是否发送玩家死亡信息
+  send-player-dead-message: true
+
+  # 死亡消息
+  # 自带变量：
+  # %player% - 玩家显示昵称
+  # %death_description% - 死亡描述
+  player-die-message: "【%player%】 %death_description% "

@@ -6,6 +6,7 @@ import me.dreamvoid.chat2qq.bukkit.listener.onPlayerJoin;
 import me.dreamvoid.chat2qq.bukkit.listener.onPlayerMessage;
 import me.dreamvoid.chat2qq.bukkit.listener.onPlayerQuit;
 import me.dreamvoid.chat2qq.bukkit.listener.onPlayerAdvancementDone;
+import me.dreamvoid.chat2qq.bukkit.listener.onPlayerDie;
 import me.dreamvoid.chat2qq.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.api.MiraiBot;
 import org.bukkit.Bukkit;
@@ -51,6 +52,7 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new onPlayerJoin(this), this);
         Bukkit.getPluginManager().registerEvents(new onPlayerQuit(this), this);
         Bukkit.getPluginManager().registerEvents(new onPlayerAdvancementDone(this), this);
+        Bukkit.getPluginManager().registerEvents(new onPlayerDie(this), this);
         getCommand("qchat").setExecutor(this);
         getCommand("chat2qq").setExecutor(this);
         if (getConfig().getBoolean("general.allow-bStats", true)) {

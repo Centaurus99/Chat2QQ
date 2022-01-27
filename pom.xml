@@ -18,24 +18,21 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.github.dreamvoid</groupId>
-                <artifactId>MiraiMC-Integration</artifactId>
-                <!--请确保版本为Github上的最新版本-->
-                <version>1.5.3</version>
-                <scope>provided</scope>
-            </dependency>
-            
-            <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
-            <dependency>
-                <groupId>com.googlecode.json-simple</groupId>
-                <artifactId>json-simple</artifactId>
-                <version>1.1.1</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.dreamvoid</groupId>
+            <artifactId>MiraiMC-Integration</artifactId>
+            <!--请确保版本为Github上的最新版本-->
+            <version>1.5.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <finalName>${project.artifactId}</finalName>

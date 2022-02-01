@@ -21,7 +21,7 @@ public class onGroupMessage implements Listener {
     @EventHandler
     public void onGroupMessageReceive(MiraiGroupMessageEvent e){
         String name = e.getSenderNameCard();
-        if(name.equalsIgnoreCase("") && plugin.getConfig().getBoolean("general.use-nick-if-namecard-null",false)){
+        if(name.equalsIgnoreCase("") && plugin.getConfig().getBoolean("general.use-nick-if-namecard-null",false) && e.getType() == 0){
             name = MiraiBot.getBot(e.getBotID()).getGroup(e.getGroupID()).getMember(e.getSenderID()).getNick();
         }
         String formatText;
@@ -54,7 +54,7 @@ public class onGroupMessage implements Listener {
             }
         } else allowPrefix = true;
 
-        if(e.getBotID() == plugin.getConfig().getLong("bot.botaccount") && e.getGroupID() == plugin.getConfig().getLong("bot.groupid") && allowPrefix){
+        if(plugin.getConfig().getLongList("bot.bot-accounts").contains(e.getBotID()) && plugin.getConfig().getLongList("bot.group-ids").contains(e.getGroupID()) && allowPrefix){
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',formatText));
         }
     }

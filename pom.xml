@@ -7,7 +7,7 @@
     <groupId>io.github.centaurus99</groupId>
     <artifactId>Chat2QQ</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.3</version>
+    <version>1.6</version>
     <modules>
         <module>Chat2QQ-Bukkit</module>
     </modules>
@@ -23,7 +23,7 @@
             <groupId>io.github.dreamvoid</groupId>
             <artifactId>MiraiMC-Integration</artifactId>
             <!--请确保版本为Github上的最新版本-->
-            <version>1.5.3</version>
+            <version>1.6</version>
             <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->

@@ -9,10 +9,13 @@ import me.dreamvoid.chat2qq.bukkit.listener.onPlayerAdvancementDone;
 import me.dreamvoid.chat2qq.bukkit.listener.onPlayerDie;
 import me.dreamvoid.chat2qq.bukkit.utils.Metrics;
 import me.dreamvoid.miraimc.api.MiraiBot;
+import me.dreamvoid.miraimc.internal.httpapi.MiraiHttpAPI;
+import me.dreamvoid.miraimc.internal.httpapi.exception.AbnormalStatusException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,8 +26,10 @@ import org.json.simple.parser.JSONParser;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class BukkitPlugin extends JavaPlugin implements Listener {
+import java.io.IOException;
+import java.util.NoSuchElementException;
 
+public class BukkitPlugin extends JavaPlugin implements Listener, CommandExecutor {
     public JSONObject lang_zh_cn;
 
     @Override // 加载插件
@@ -109,8 +114,22 @@ public class BukkitPlugin extends JavaPlugin implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        MiraiBot.getBot(getConfig().getLong("bot.botaccount"))
-                                .getGroup(getConfig().getLong("bot.groupid")).sendMessageMirai(finalFormatText);
+                        getConfig().getLongList("bot.bot-accounts")
+                                .forEach(bot -> getConfig().getLongList("bot.group-ids").forEach(group -> {
+                                    try {
+                                        MiraiBot.getBot(bot).getGroup(group).sendMessageMirai(finalFormatText);
+                                    } catch (NoSuchElementException e) {
+                                        if (MiraiHttpAPI.Bots.containsKey(bot)) {
+                                            try {
+                                                MiraiHttpAPI.INSTANCE.sendGroupMessage(MiraiHttpAPI.Bots.get(bot),
+                                                        group, finalFormatText);
+                                            } catch (IOException | AbnormalStatusException ex) {
+                                                getLogger().warning("使用" + bot + "发送消息时出现异常，原因: " + ex);
+                                            }
+                                        } else
+                                            getLogger().warning("指定的机器人" + bot + "不存在，是否已经登录了机器人？");
+                                    }
+                                }));
                     }
                 }.runTaskAsynchronously(this);
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a已发送QQ群聊天消息！"));

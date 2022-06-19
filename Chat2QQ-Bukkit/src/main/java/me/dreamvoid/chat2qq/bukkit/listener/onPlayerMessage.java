@@ -50,7 +50,7 @@ public class onPlayerMessage implements Listener {
                 for(String prefix : plugin.getConfig().getStringList("general.requite-special-word-prefix.prefix")){
                     if(message.startsWith(prefix)){
                         allowPrefix = true;
-                        formatText = formatText.substring(prefix.length());
+                        formatText = formatText.replace(prefix,"");
                         break;
                     }
                 }
